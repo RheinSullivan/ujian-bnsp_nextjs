@@ -19,12 +19,9 @@ const getSkema = async (search: string) => {
 
 export const dynamic = "force-dynamic";
 
-// ✅ Gunakan props { searchParams }
-const SkemaPage = async ({ searchParams }: { searchParams: { [key: string]: string } }) => {
-  const search = searchParams.s ?? "";
+export default async function SkemaPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const search = Array.isArray(searchParams.s) ? searchParams.s[0] : searchParams.s || "";
   const skema = await getSkema(search);
 
   return <SkemaClient skema={skema} search={search} />;
-};
-
-export default SkemaPage;
+}

@@ -9,6 +9,7 @@ import { useState } from "react";
 import { IoMdCreate, IoMdSearch, IoMdTrash } from "react-icons/io";
 import { HiViewGridAdd } from "react-icons/hi";
 import { Skema } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 const tableHeaders = [
   { label: "No", className: "text-center px-5 py-2" },
@@ -20,11 +21,19 @@ const tableHeaders = [
 ];
 
 const SkemaClient = ({ skema, search }: { skema: Skema[]; search: string }) => {
+  const router = useRouter();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedSkema, setSelectedSkema] = useState<any | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [skemaToDelete, setSkemaToDelete] = useState<any | null>(null);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const searchQuery = formData.get("s") as string;
+    router.replace(`/skema?s=${encodeURIComponent(searchQuery)}`);
+  };
 
   return (
     <div className="p-10">
@@ -32,8 +41,8 @@ const SkemaClient = ({ skema, search }: { skema: Skema[]; search: string }) => {
         <nav className="mb-10 flex justify-between items-center">
           <div className="flex font-bold italic">
             <figcaption>
-              <h1 className="text-3xl text-[#0077cc]">Pelatihan BNSP</h1>
-              <p className="text-gray-300 text-sm">Badan Nasional Sertifikasi Profesi</p>
+              <h1 className="text-3xl text-[#0077cc]">Ujian BNSP</h1>
+              <p className="text-gray-500 text-sm">Moh. Rifki Ramadhan (UMC)</p>
             </figcaption>
           </div>
           <div className="flex items-center gap-10">
@@ -49,14 +58,13 @@ const SkemaClient = ({ skema, search }: { skema: Skema[]; search: string }) => {
         </nav>
 
         <div className="mb-7 flex justify-between items-center">
-          <form method="GET" action="/skema" className="flex justify-between gap-4 w-full max-w-xl">
+          <form onSubmit={handleSearch} className="flex justify-between gap-4 w-full max-w-xl">
             <input type="text" name="s" placeholder="Cari Daftar Skema" className="input input-bordered bg-gray-100 rounded-md py-2 px-4 w-full" defaultValue={search} />
             <button type="submit" className="py-2 px-4 bg-sky-600 rounded-md flex justify-between gap-2 items-center text-white">
               <IoMdSearch />
               Cari
             </button>
           </form>
-
           <button onClick={() => setShowAddModal(true)} className="bg-green-600 text-white px-4 py-2 rounded-md hover:scale-110 flex justify-between gap-2 items-center transition-all duration-300">
             <HiViewGridAdd />
             Tambah Skema

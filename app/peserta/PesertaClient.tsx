@@ -29,8 +29,8 @@ const PesertaClient = ({ peserta, skema, search }: { peserta: any[]; skema: any[
       <nav className="mb-10 flex justify-between items-center">
         <div className="flex font-bold italic">
           <figcaption>
-            <h1 className="text-3xl text-[#0077cc]">Pelatian BNSP</h1>
-            <p className="text-gray-300 text-sm">Badan Nasional Sertifikasi Profesi</p>
+            <h1 className="text-3xl text-[#0077cc]">Ujian BNSP</h1>
+            <p className="text-gray-500 text-sm">Moh. Rifki Ramadhan (UMC)</p>
           </figcaption>
         </div>
         <div className="flex items-center gap-10">

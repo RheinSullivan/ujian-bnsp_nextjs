@@ -18,7 +18,7 @@ const DeleteSkema = ({ skema, showModal, setShowModal }: DeleteSkemaProps) => {
   const handleDelete = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.delete(`/api/skema/${skema.Kd_skema}`);
+      const response = await axios.delete(`/api/skema/${encodeURIComponent(skema.Kd_skema)}`);
       if (response.data.error) {
         alert(response.data.error);
       } else {

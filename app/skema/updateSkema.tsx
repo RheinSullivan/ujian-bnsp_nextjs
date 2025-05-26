@@ -23,7 +23,7 @@ const UpdateSkema = ({ skema, showModal, setShowModal }: UpdateSkemaProps) => {
     try {
       setIsLoading(true);
       setError(null);
-      await axios.patch(`/api/skema/${skema.Kd_skema}`, form);
+      await axios.patch(`/api/skema/${encodeURIComponent(skema.Kd_skema)}`, form);
       router.refresh();
       setShowModal(false);
     } catch (err) {
